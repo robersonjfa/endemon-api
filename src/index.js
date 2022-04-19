@@ -9,6 +9,11 @@ app.use(express.json());
 app.use(cors());
 
 //configure the app.
+app.get("/", (req, res) =>{
+    res.send("EndemonAPI");
+});
+
+//configure the app.
 app.use(rotasCasos);
 
 const PORT = process.env.PORT || 4000;
