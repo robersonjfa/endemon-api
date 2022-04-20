@@ -30,6 +30,7 @@ router.delete('/casos/:casoId', async (req, res) => {
     let { casoId } = req.params;
     await new Caso().deleteCaso(casoId);
     let casos = await new Caso().getCasos();
+    res.status(200).json(casos);
 });
 
 module.exports = router;
