@@ -1,3 +1,9 @@
+create table usuario (
+	codusu serial primary key,
+	logusu varchar(20) not null,
+	senusu varchar(32) not null
+);
+
 create table pessoa(
 	codpes serial primary key,
 	nompes varchar(40));
@@ -43,3 +49,6 @@ insert into pessoa(nompes) values
 ('Beltrano da Cunha'),
 ('Ciclana Coelho'),
 ('Fulana Coimbra');
+
+insert into usuario(logusu, senusu) values
+('endemon', 'endemon');

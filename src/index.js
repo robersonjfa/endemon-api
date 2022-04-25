@@ -4,6 +4,7 @@ const app = express();
 
 //import the routes
 const rotasCasos = require('./routes/casos');
+const rotasUsuarios = require('./routes/usuarios');
 
 app.use(express.json());
 app.use(cors());
@@ -15,6 +16,7 @@ app.get("/", (req, res) =>{
 
 //configure the app.
 app.use(rotasCasos);
+app.use(rotasUsuarios);
 
 const PORT = process.env.PORT || 4000;
 
