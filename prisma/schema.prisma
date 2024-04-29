@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model armadilha {
+  codarm               Int                    @id @default(autoincrement())
+  desarm               String?                @db.VarChar(80)
+  residencia_armadilha residencia_armadilha[]
+}
+
+model caso {
+  codcas    Int       @id @default(autoincrement())
+  codpes    Int
+  latcas    Decimal?  @db.Decimal(10, 6)
+  lngcas    Decimal?  @db.Decimal(10, 6)
+  datcadcas DateTime? @default(now()) @db.Timestamp(6)
+  pessoa    pessoa    @relation(fields: [codpes], references: [codpes], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model pessoa {
+  codpes            Int                 @id @default(autoincrement())
+  nompes            String?             @db.VarChar(40)
+  caso              caso[]
+  residencia_pessoa residencia_pessoa[]
+}
+
+model residencia {
+  codres               Int                    @id @default(autoincrement())
+  latres               Decimal?               @db.Decimal(10, 6)
+  lngres               Decimal?               @db.Decimal(10, 6)
+  cplres               String                 @db.VarChar(40)
+  residencia_armadilha residencia_armadilha[]
+  residencia_pessoa    residencia_pessoa[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model residencia_armadilha {
+  codres     Int
+  codarm     Int
+  datini     DateTime?  @db.Date
+  datfim     DateTime   @db.Date
+  obsarm     String?
+  codrar     Int        @id(map: "resarm_pk") @default(autoincrement())
+  armadilha  armadilha  @relation(fields: [codarm], references: [codarm], onDelete: NoAction, onUpdate: NoAction)
+  residencia residencia @relation(fields: [codres], references: [codres], onDelete: NoAction, onUpdate: NoAction)
+
+}
+
+model residencia_pessoa {
+  codres     Int
+  codpes     Int
+  datcad     DateTime?  @default(now()) @db.Timestamp(6)
+  pessoa     pessoa     @relation(fields: [codpes], references: [codpes], onDelete: NoAction, onUpdate: NoAction)
+  residencia residencia @relation(fields: [codres], references: [codres], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([codres, codpes])
+}
+
+model usuario {
+  codusu Int    @id @default(autoincrement())
+  logusu String @db.VarChar(20)
+  senusu String @db.VarChar(100)
+}
