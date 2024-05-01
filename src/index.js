@@ -25,7 +25,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "development" || !process.env.NODE_ENV
-        ? "http://localhost:5273"
+        ? "http://localhost:5173"
         : process.env.FRONT_URL,
     allowedHeaders: [
       "Access-Control-Allow-Origin",
