@@ -25,7 +25,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "development" || !process.env.NODE_ENV
-        ? "http://localhost:5173"
+        ? "http://localhost:3000"
         : process.env.FRONT_URL,
     allowedHeaders: [
       "Access-Control-Allow-Origin",
@@ -66,7 +66,7 @@ app.use("/usuarios", authenticationToken, routerUsuarios);
 //   });
 // });
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`app started on port ${PORT}`);
